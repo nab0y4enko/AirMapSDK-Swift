@@ -1,0 +1,4 @@
+[submodule "interfaces"]
+	path = interfaces
+	url = https://github.com/airmap/interfaces.git
+	branch = master
