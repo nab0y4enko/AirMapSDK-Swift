@@ -191,8 +191,8 @@ struct AirMapTelemetry {
       // methods supported on all messages.
 
       /// The identifier of the flight for which the update is for.
-      var flight: AirMapFlightId {
-        get {return _storage._flight ?? AirMapFlightId()}
+      var flight: AirMapFlightId2 {
+        get {return _storage._flight ?? AirMapFlightId2()}
         set {_uniqueStorage()._flight = newValue}
       }
       /// Returns true if `flight` has been explicitly set.
@@ -574,7 +574,7 @@ extension AirMapTelemetry.Update.FromClient: SwiftProtobuf.Message, SwiftProtobu
   ]
 
   fileprivate class _StorageClass {
-    var _flight: AirMapFlightId? = nil
+    var _flight: AirMapFlightId2? = nil
     var _submitted: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
     var _reports: [AirMapTelemetry.Report] = []
 

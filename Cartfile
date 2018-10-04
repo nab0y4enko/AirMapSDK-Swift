@@ -19,5 +19,6 @@ github "aciidb0mb3r/SwiftMQTT"
 github "robbiehanson/CocoaAsyncSocket"
 
 # AirMapTelemetry
-github "alexeyxo/protobuf-swift" ~> 4.0
+github "apple/swift-protobuf" == 1.1.2
+github "grpc/grpc-swift" == 0.4.1
 github "krzyzanowskim/CryptoSwift" ~> 0.10

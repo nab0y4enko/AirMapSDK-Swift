@@ -99,9 +99,7 @@ struct Constants {
 		
 		struct SampleRate {
 			static let position: TimeInterval = 1/5
-			static let attitude: TimeInterval = 1/5
-			static let speed: TimeInterval = 1/5
-			static let barometer: TimeInterval = 20
+			static let atmospheric: TimeInterval = 5
 		}
 	}
 

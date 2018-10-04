@@ -18,123 +18,142 @@
 //  limitations under the License.
 //
 
-import ProtocolBuffers
-import CoreLocation
+import Swift
+import SwiftProtobuf
 
 extension AirMap {
 
 	// MARK: - Telemetry
-	
+
 	public enum TelemetryError: Error {
 		case invalidCredentials
-		case invalidFlight
+		case invalidData
+		case failedToConnectToService
+		case failedToReceiveAcknowledgements
+		case failedToSendUpdates
 	}
-	
-	/**
-	
-	Send aircraft position telemetry data to AirMap
-	
-	- parameter flight: The identifier for the `AirMapFlight` to report telemetry data for
-	- parameter coordinate: The latitude & longitude of the aircraft
-	- parameter altitudeAgl: The altitude of the aircraft in meters above ground
-	- parameter altitudeMsl: The altitude of the aircraft in meters above Mean Sea Level
-	- parameter horizontalAccuracy: Optional. The horizontal dilution of precision (HDOP)
-	
-	*/
-	public static func sendTelemetryData(_ flightId: AirMapFlightId, coordinate: Coordinate2D, altitudeAgl: Float?, altitudeMsl: Float?, horizontalAccuracy: Float? = nil) throws {
-		
-		try canSendTelemetry()
-		
-		let position = Airmap.Telemetry.Position.Builder()
-		position.setTimestamp(Date().timeIntervalSince1970.milliseconds)
-		position.setLatitude(coordinate.latitude)
-		position.setLongitude(coordinate.longitude)
-		if let agl = altitudeAgl {
-			position.setAltitudeAgl(agl)
-		}
-		if let msl = altitudeMsl {
-			position.setAltitudeMsl(msl)
-		}
-		if let accuracy = horizontalAccuracy {
-			position.setHorizontalAccuracy(accuracy)
-		}
-		let positionMessage = try position.build()
-		telemetryClient.sendTelemetry(flightId, message: positionMessage)
-	}
-	
-	/**
-	
-	Send aircraft speed telemetry data to AirMap
-	
-	- parameter flightId: The identifier for the `AirMapFlight` to report telemetry data for
-	- parameter velocity: A tuple of axis velocities (X,Y,Z) using the N-E-D (North-East-Down) coordinate system
-	
-	*/
-	public static func sendTelemetryData(_ flightId: AirMapFlightId, velocity: (x: Float, y: Float, z: Float)) throws {
-		
-		try canSendTelemetry()
-		
-		let speed = Airmap.Telemetry.Speed.Builder()
-		speed.setTimestamp(Date().timeIntervalSince1970.milliseconds)
-		speed.setVelocityX(velocity.x)
-		speed.setVelocityY(velocity.y)
-		speed.setVelocityZ(velocity.z)
-		
-		let speedMessage = try speed.build()
-		telemetryClient.sendTelemetry(flightId, message: speedMessage)
-	}
-	
-	/**
-	
-	Send aircraft attitude telemetry data to AirMap
-	
-	- parameter flight: The identifier for the `AirMapFlight` to report telemetry data for
-	- parameter yaw: The yaw angle in degrees measured from True North (0 <= x < 360)
-	- parameter pitch: The angle (up-down tilt) in degrees up or down relative to the forward horizon (-180 < x <= 180)
-	- parameter roll: The angle (left-right tilt) in degrees (-180 < x <= 180)
-	
-	*/
-	public static func sendTelemetryData(_ flightId: AirMapFlightId, yaw: Float, pitch: Float, roll: Float) throws {
-		
-		try canSendTelemetry()
-		
-		let attitude = Airmap.Telemetry.Attitude.Builder()
-		attitude.setTimestamp(Date().timeIntervalSince1970.milliseconds)
-		attitude.setYaw(yaw)
-		attitude.setPitch(pitch)
-		attitude.setRoll(roll)
-		
-		let attitudeMessage = try attitude.build()
-		telemetryClient.sendTelemetry(flightId, message: attitudeMessage)
-	}
-	
-	/**
-	
-	Send barometer telemetry data to AirMap
-	
-	- parameter flight: The identifier for the `AirMapFlight` to report telemetry data for
-	- parameter baro: The barometric pressure in hPa (~1000)
-	
-	*/
-	public static func sendTelemetryData(_ flightId: AirMapFlightId, baro: Float) throws {
-		
-		try canSendTelemetry()
-		
-		let barometer = Airmap.Telemetry.Barometer.Builder()
-		barometer.setTimestamp(Date().timeIntervalSince1970.milliseconds)
-		barometer.setPressure(baro)
 
-		let barometerMessage = try barometer.build()
-		telemetryClient.sendTelemetry(flightId, message: barometerMessage)
+	public typealias Altitude = (height: Meters, reference: AltitudeReference)
+	public typealias Velocity = (x: Float, y: Float, z: Float)
+	public typealias Orientation = (yaw: Float, pitch: Float, roll: Float)
+
+	public enum AltitudeReference {
+		case Ground
+		case GPS
+		case MeanSeaLevel
+	}
+
+	/// Send positional telemetry to AirMap
+	///
+	/// - Parameters:
+	///   - id: The identifier for the `AirMapFlight` to report telemetry data for
+	///   - coordinate: The latitude & longitude of the aircraft
+	///   - altitude: The height and reference of the aircraft in meters
+	///   - velocity: A tuple of axis velocities (X,Y,Z) using the N-E-D (North-East-Down) coordinate system
+	///   - orientation: The yaw, pitch, roll of the aircraft.
+	///     Yaw: angle in degrees measured from True North (0 <= x < 360).
+	///     Pitch: The angle (up-down tilt) in degrees up or down relative to the forward horizon (-180 < x <= 180)
+	///     Roll: The angle (left-right tilt) in degrees (-180 < x <= 180)
+	/// - Throws: TelemetryError.invalidCredentials if the user is unable to send telemtry
+	public static func sendPositionalTelemetry(_ id: AirMapFlightId, coordinate: Coordinate2D, altitude: Altitude, velocity: Velocity?, orientation: Orientation?) throws {
+		
+		try canSendTelemetry()
+
+		telemetryClient.sendTelemetry(flight: id, report: AirMapTelemetry.Report.with { (report) in
+			report.observed = .init(date: Date())
+			report.details = .spatial(AirMapTelemetry.Report.Spatial.with { (spatial) in
+				spatial.position = AirMapPosition.with({ (pos) in
+					pos.coordinate = AirMapCoordinate2D.with({ (coord) in
+						coord.latitude = AirMapDegrees.with({ $0.value = coordinate.latitude })
+						coord.longitude = AirMapDegrees.with({ $0.value = coordinate.longitude })
+					})
+					pos.altitude = AirMapAltitude.with { (alt) in
+						alt.height = AirMapMeters.with ({ $0.value = altitude.height })
+						switch altitude.reference {
+						case .Ground:
+							alt.reference = .surface
+						case .GPS:
+							alt.reference = .ellipsoid
+						case .MeanSeaLevel:
+							alt.reference = .geoid
+						}
+					}
+				})
+				if let velocity = velocity {
+					spatial.velocity = AirMapVelocity.with({ (v) in
+						v.x = AirMapMetersPerSecond.with({ $0.value = Double(velocity.x) })
+						v.y = AirMapMetersPerSecond.with({ $0.value = Double(velocity.y) })
+						v.z = AirMapMetersPerSecond.with({ $0.value = Double(velocity.z) })
+					})
+				}
+				if let orientation = orientation {
+					spatial.orientation = AirMapOrientation.with({ (orien) in
+						orien.yaw   = AirMapDegrees.with{ $0.value = Double(orientation.yaw)}
+						orien.pitch = AirMapDegrees.with{ $0.value = Double(orientation.pitch)}
+						orien.roll  = AirMapDegrees.with{ $0.value = Double(orientation.roll)}
+					})
+				}
+			})
+		})
+	}
+
+	/// Send atmospheric telemetry to AirMap
+	///
+	/// - Parameters:
+	///   - id: The identifier for the `AirMapFlight` to report telemetry data for
+	///   - coordinate: The latitude & longitude of the aircraft
+	///   - altitude: The height and reference of the aircraft in meters
+	///   - baro: The barometric pressure in Pascals (~100,000 Pa)
+	///   - temperature: The ambient temperature in degrees Celsius (C°)
+	/// - Throws: TelemetryError.invalidCredentials if the user is unable to send telemtry
+	public static func sendAtmosphericTelemetry(_ id: AirMapFlightId, coordinate: Coordinate2D, altitude: Altitude?, baro: Double?, temperature: Double?) throws {
+		
+		try canSendTelemetry()
+
+		guard baro != nil || temperature != nil else {
+			throw TelemetryError.invalidData
+		}
+
+		telemetryClient.sendTelemetry(flight: id, report: AirMapTelemetry.Report.with { (report) in
+			report.observed = .init(date: Date())
+			report.details = AirMapTelemetry.Report.OneOf_Details.atmospheric(AirMapTelemetry.Report.Atmospheric.with({ (atmos) in
+				atmos.position = AirMapPosition.with({ (pos) in
+					pos.coordinate = AirMapCoordinate2D.with({ (coord) in
+						coord.latitude = AirMapDegrees.with({ $0.value = coordinate.latitude })
+						coord.longitude = AirMapDegrees.with({ $0.value = coordinate.longitude })
+					})
+				})
+				if let altitude = altitude {
+					atmos.position.altitude = AirMapAltitude.with { (alt) in
+						alt.height = AirMapMeters.with ({ $0.value = altitude.height })
+						switch altitude.reference {
+						case .Ground:
+							alt.reference = .surface
+						case .GPS:
+							alt.reference = .ellipsoid
+						case .MeanSeaLevel:
+							alt.reference = .geoid
+						}
+					}
+				}
+				if let baro = baro {
+					atmos.pressure = AirMapPressure.with({ (press) in
+						press.units = AirMapPascal.with({ $0.value = baro })
+					})
+				}
+				if let temperature = temperature {
+					atmos.temperature = AirMapTemperature.with({ (temp) in
+						temp.degrees = AirMapCelsius.with({ $0.value = temperature})
+					})
+				}
+			}))
+		})
 	}
 	
-	/**
-	
-	Verify the user can send telemetry data
-	
-	*/
+	/// Verify the user can send telemetry data
+	///
+	/// - Throws: TelemetryError.invalidCredentials if the user is unable to send telemtry
 	fileprivate static func canSendTelemetry() throws {
-	
 		guard AirMap.hasValidCredentials() else {
 			logger.error(self, "Please login before sending telemetry data.")
 			throw TelemetryError.invalidCredentials
@@ -142,4 +161,3 @@ extension AirMap {
 	}
 	
 }
-

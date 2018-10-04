@@ -22,7 +22,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// FlightId models the unique id of a flight in the context of AirMap.
-struct AirMapFlightId {
+struct AirMapFlightId2 {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -39,7 +39,7 @@ struct AirMapFlightId {
 
 fileprivate let _protobuf_package = "airmap"
 
-extension AirMapFlightId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension AirMapFlightId2: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".FlightId"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "as_string"),
@@ -61,7 +61,7 @@ extension AirMapFlightId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapFlightId, rhs: AirMapFlightId) -> Bool {
+  static func ==(lhs: AirMapFlightId2, rhs: AirMapFlightId2) -> Bool {
     if lhs.asString != rhs.asString {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

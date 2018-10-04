@@ -1,7 +1,6 @@
 protos_path := interfaces/grpc
 
 protos_telemetry := \
-	$(protos_path)/extensions.proto \
 	$(protos_path)/ids.proto \
 	$(protos_path)/measurements.proto \
 	$(protos_path)/telemetry.proto \

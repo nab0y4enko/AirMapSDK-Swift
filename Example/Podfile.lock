@@ -18,7 +18,8 @@ PODS:
     - AirMapSDK/Core
     - CocoaAsyncSocket
     - CryptoSwift (~> 0.10.0)
-    - ProtocolBuffers-Swift (= 4.0.4)
+    - SwiftGRPC
+    - SwiftProtobuf (= 1.1.2)
   - AirMapSDK/Traffic (2.0.3):
     - AirMapSDK/Core
     - SwiftMQTT (~> 3.0)
@@ -31,9 +32,23 @@ PODS:
   - Alamofire (4.7.3)
   - Auth0 (1.13.0):
     - SimpleKeychain
+  - BoringSSL (10.0.6):
+    - BoringSSL/Implementation (= 10.0.6)
+    - BoringSSL/Interface (= 10.0.6)
+  - BoringSSL/Implementation (10.0.6):
+    - BoringSSL/Interface (= 10.0.6)
+  - BoringSSL/Interface (10.0.6)
   - CocoaAsyncSocket (7.6.3)
   - CryptoSwift (0.10.0)
   - Differentiator (3.1.0)
+  - gRPC-Core (1.12.0):
+    - gRPC-Core/Implementation (= 1.12.0)
+    - gRPC-Core/Interface (= 1.12.0)
+  - gRPC-Core/Implementation (1.12.0):
+    - BoringSSL (~> 10.0)
+    - gRPC-Core/Interface (= 1.12.0)
+    - nanopb (~> 0.3)
+  - gRPC-Core/Interface (1.12.0)
   - JWTDecode (2.1.1)
   - Lock (2.7.0):
     - Auth0 (~> 1.13)
@@ -42,6 +57,11 @@ PODS:
     - Auth0 (~> 1.13)
   - Log (1.0)
   - Mapbox-iOS-SDK (3.7.8)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
   - Nimble (7.3.1)
   - ObjectMapper (3.3.0)
   - OHHTTPStubs (6.1.0):
@@ -65,7 +85,6 @@ PODS:
   - PhoneNumberKit/PhoneNumberKitCore (2.1.0)
   - PhoneNumberKit/UIKit (2.1.0):
     - PhoneNumberKit/PhoneNumberKitCore
-  - ProtocolBuffers-Swift (4.0.4)
   - Quick (1.3.2)
   - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
@@ -79,7 +98,12 @@ PODS:
   - RxSwiftExt/Core (3.3.0):
     - RxSwift (~> 4.0)
   - SimpleKeychain (0.8.1)
+  - SwiftGRPC (0.6.0):
+    - BoringSSL (~> 10.0)
+    - gRPC-Core (~> 1.12.0)
+    - SwiftProtobuf (~> 1.1.1)
   - SwiftMQTT (3.0.0)
+  - SwiftProtobuf (1.1.2)
   - SwiftTurf (0.3.2)
 
 DEPENDENCIES:
@@ -93,25 +117,29 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Auth0
+    - BoringSSL
     - CocoaAsyncSocket
     - CryptoSwift
     - Differentiator
+    - gRPC-Core
     - JWTDecode
     - Lock
     - Log
     - Mapbox-iOS-SDK
+    - nanopb
     - Nimble
     - ObjectMapper
     - OHHTTPStubs
     - PhoneNumberKit
-    - ProtocolBuffers-Swift
     - Quick
     - RxCocoa
     - RxDataSources
     - RxSwift
     - RxSwiftExt
     - SimpleKeychain
+    - SwiftGRPC
     - SwiftMQTT
+    - SwiftProtobuf
     - SwiftTurf
 
 EXTERNAL SOURCES:
@@ -119,30 +147,34 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AirMapSDK: 7aa6a254bb5c359a4018999d6c25c83ae9319e7b
+  AirMapSDK: 4595f30a04fd01b6ea17e27420b5f8373b672450
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   Auth0: 7e99e1ca69543bc243d9687fd612057072f3eaaf
+  BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  gRPC-Core: 9696b220565b283e021cf2722d473a4a74b7622a
   JWTDecode: 83e8b381aafe27158d9f692cbdca2b12d61d460c
   Lock: 2b1486153f8bc2205ec180a1957c5717597a4b8a
   Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
   Mapbox-iOS-SDK: a8b55533ef5c5e91b5a26533bd4fb0ec88a3b994
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
   PhoneNumberKit: 62003f40ff75315fd3738286558bc365365ac222
-  ProtocolBuffers-Swift: e71f9a713b096bf695a1f6b77426caff6a19a8cc
   Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   RxSwiftExt: 81afb48ab0602f503147417baeb3989d64c7687d
   SimpleKeychain: e2485c28d82fcece35e9e41faeac42ebfe614815
+  SwiftGRPC: 465792c0e09dcb083d19d97137cee71b4f4f8b6f
   SwiftMQTT: acd344613d39c0371de62f9f494e129ca14da9d1
+  SwiftProtobuf: 7147b8ec19c8c0694a45155d989ea9e6dedaf51f
   SwiftTurf: 6ec29121fdb688a223aefca350843a9880e1489f
 
-PODFILE CHECKSUM: 49598a7476ee36a4c507bb3b31b4ae89b2632a65
+PODFILE CHECKSUM: 42d84e0a72bb4043c774f83eafe8b99485752176
 
 COCOAPODS: 1.5.3

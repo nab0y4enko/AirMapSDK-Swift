@@ -38,7 +38,7 @@ extension AirMap {
 	internal static let authSession = AirMapAuthSession()
 
 	#if AIRMAP_TELEMETRY
-	internal static let telemetryClient = AirMapTelemetry.Client()
+	internal static let telemetryClient = TelemetryClient()
 	internal static let telemetrySocket = GCDAsyncUdpSocket()
 	#endif
 
