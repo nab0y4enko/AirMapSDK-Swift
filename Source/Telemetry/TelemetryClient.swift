@@ -37,7 +37,11 @@ class TelemetryClient {
 
 	init() {
 
-		let channel = Channel(address: "localhost:9091", secure: false, arguments: [])
+		let channel = Channel(
+			address: "localhost:7090",
+			secure: false,
+			arguments: []
+		)
 		let client = Airmap_TelemetryProviderServiceClient(channel: channel)
 		let call = try! client.connectUpdates(completion: nil)
 
@@ -48,35 +52,36 @@ class TelemetryClient {
 			return Disposables.create()
 		}
 
-		let telemetry = Observable
-			.merge(
-				reports
-					.filter(TelemetryClient.isSpatialReport)
-					.throttle(Constants.Airmap_Telemetry.SampleRate.spatial, scheduler: scheduler),
-				reports
-					.filter(TelemetryClient.isAtmosphericReport)
-					.throttle(Constants.Airmap_Telemetry.SampleRate.atmospheric, scheduler: scheduler)
-			)
-			.map({ (next) -> Airmap_Telemetry.Update.FromClient in
-				.with({ (update) in
-					update.submitted = .init(date: Date())
-					update.flight = Airmap_FlightId.with({ $0.asString = next.flightId.rawValue })
-					update.reports = [next.report]
-				})
-			})
+		let spatial = reports
+			.filter(TelemetryClient.isSpatialReport)
+			.throttle(Constants.Airmap_Telemetry.SampleRate.spatial, scheduler: scheduler)
 
-		channelState
-			.debug("Telemetry gRPC Channel State")
+		let atmospheric = reports
+			.filter(TelemetryClient.isAtmosphericReport)
+			.throttle(Constants.Airmap_Telemetry.SampleRate.atmospheric, scheduler: scheduler)
+
+		let updates = Observable
+			.merge(spatial, atmospheric)
+			.map(TelemetryClient.trafficUpdate)
+
+		let channelReady = channelState
+			.debug("Channel State")
 			.filter(.ready)
+
+		channelReady
 			.flatMapLatest { (_) -> Observable<Void> in
-				telemetry
+				updates
 					.flatMap(call.send)
+					.debug("send")
 					.ignoreErrors()
 					.takeUntil(channelState)
 			}
 			.subscribe()
 			.disposed(by: disposeBag)
 	}
+}
+
+extension TelemetryClient {
 
 	private static func isSpatialReport(flightReport: FlightReport) -> Bool {
 		if let details = flightReport.report.details, case .spatial = details { return true } else { return false }
@@ -84,5 +89,13 @@ class TelemetryClient {
 
 	private static func isAtmosphericReport(flightReport: FlightReport) -> Bool {
 		if let details = flightReport.report.details, case .atmospheric = details { return true } else { return false }
+	}
+
+	private static func trafficUpdate(from next: FlightReport) -> Airmap_Telemetry.Update.FromClient {
+		return .with({ (update) in
+			update.submitted = .init(date: Date())
+			update.flight = Airmap_FlightId.with({ $0.asString = next.flightId.rawValue })
+			update.reports = [next.report]
+		})
 	}
 }

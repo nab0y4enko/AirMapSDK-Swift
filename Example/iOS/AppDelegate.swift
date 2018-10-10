@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-		AirMap.rx.performAnonymousLogin(userId: "adolfo").mapToVoid()
+		AirMap.rx
+			.performAnonymousLogin(userId: "adolfo").mapToVoid()
 			.flatMapLatest(AirMap.rx.getCurrentAuthenticatedPilotFlight)
 			.flatMapLatest { (active) -> Observable<AirMapFlight> in
 				if let active = active {
