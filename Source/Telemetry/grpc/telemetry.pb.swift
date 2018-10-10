@@ -22,7 +22,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// Telemetry bundles up types used for reporting telematic data.
-struct AirMapTelemetry {
+struct Airmap_Telemetry {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -51,18 +51,18 @@ struct AirMapTelemetry {
       set {_uniqueStorage()._details = newValue}
     }
 
-    var spatial: AirMapTelemetry.Report.Spatial {
+    var spatial: Airmap_Telemetry.Report.Spatial {
       get {
         if case .spatial(let v)? = _storage._details {return v}
-        return AirMapTelemetry.Report.Spatial()
+        return Airmap_Telemetry.Report.Spatial()
       }
       set {_uniqueStorage()._details = .spatial(newValue)}
     }
 
-    var atmospheric: AirMapTelemetry.Report.Atmospheric {
+    var atmospheric: Airmap_Telemetry.Report.Atmospheric {
       get {
         if case .atmospheric(let v)? = _storage._details {return v}
-        return AirMapTelemetry.Report.Atmospheric()
+        return Airmap_Telemetry.Report.Atmospheric()
       }
       set {_uniqueStorage()._details = .atmospheric(newValue)}
     }
@@ -71,11 +71,11 @@ struct AirMapTelemetry {
 
     /// details is a discriminated union of all measurement types.
     enum OneOf_Details: Equatable {
-      case spatial(AirMapTelemetry.Report.Spatial)
-      case atmospheric(AirMapTelemetry.Report.Atmospheric)
+      case spatial(Airmap_Telemetry.Report.Spatial)
+      case atmospheric(Airmap_Telemetry.Report.Atmospheric)
 
     #if !swift(>=4.1)
-      static func ==(lhs: AirMapTelemetry.Report.OneOf_Details, rhs: AirMapTelemetry.Report.OneOf_Details) -> Bool {
+      static func ==(lhs: Airmap_Telemetry.Report.OneOf_Details, rhs: Airmap_Telemetry.Report.OneOf_Details) -> Bool {
         switch (lhs, rhs) {
         case (.spatial(let l), .spatial(let r)): return l == r
         case (.atmospheric(let l), .atmospheric(let r)): return l == r
@@ -92,8 +92,8 @@ struct AirMapTelemetry {
       // methods supported on all messages.
 
       /// A positional measurement.
-      var position: AirMapPosition {
-        get {return _storage._position ?? AirMapPosition()}
+      var position: Airmap_Position {
+        get {return _storage._position ?? Airmap_Position()}
         set {_uniqueStorage()._position = newValue}
       }
       /// Returns true if `position` has been explicitly set.
@@ -102,8 +102,8 @@ struct AirMapTelemetry {
       mutating func clearPosition() {_uniqueStorage()._position = nil}
 
       /// A velocity measurement.
-      var velocity: AirMapVelocity {
-        get {return _storage._velocity ?? AirMapVelocity()}
+      var velocity: Airmap_Velocity {
+        get {return _storage._velocity ?? Airmap_Velocity()}
         set {_uniqueStorage()._velocity = newValue}
       }
       /// Returns true if `velocity` has been explicitly set.
@@ -112,8 +112,8 @@ struct AirMapTelemetry {
       mutating func clearVelocity() {_uniqueStorage()._velocity = nil}
 
       /// An orientation/attitude measurement.
-      var orientation: AirMapOrientation {
-        get {return _storage._orientation ?? AirMapOrientation()}
+      var orientation: Airmap_Orientation {
+        get {return _storage._orientation ?? Airmap_Orientation()}
         set {_uniqueStorage()._orientation = newValue}
       }
       /// Returns true if `orientation` has been explicitly set.
@@ -135,8 +135,8 @@ struct AirMapTelemetry {
       // methods supported on all messages.
 
       /// The position for the atmospheric measurement.
-      var position: AirMapPosition {
-        get {return _storage._position ?? AirMapPosition()}
+      var position: Airmap_Position {
+        get {return _storage._position ?? Airmap_Position()}
         set {_uniqueStorage()._position = newValue}
       }
       /// Returns true if `position` has been explicitly set.
@@ -145,8 +145,8 @@ struct AirMapTelemetry {
       mutating func clearPosition() {_uniqueStorage()._position = nil}
 
       /// An atmospheric pressure measurement.
-      var pressure: AirMapPressure {
-        get {return _storage._pressure ?? AirMapPressure()}
+      var pressure: Airmap_Pressure {
+        get {return _storage._pressure ?? Airmap_Pressure()}
         set {_uniqueStorage()._pressure = newValue}
       }
       /// Returns true if `pressure` has been explicitly set.
@@ -155,8 +155,8 @@ struct AirMapTelemetry {
       mutating func clearPressure() {_uniqueStorage()._pressure = nil}
 
       /// A temperature measurement
-      var temperature: AirMapTemperature {
-        get {return _storage._temperature ?? AirMapTemperature()}
+      var temperature: Airmap_Temperature {
+        get {return _storage._temperature ?? Airmap_Temperature()}
         set {_uniqueStorage()._temperature = newValue}
       }
       /// Returns true if `temperature` has been explicitly set.
@@ -191,8 +191,8 @@ struct AirMapTelemetry {
       // methods supported on all messages.
 
       /// The identifier of the flight for which the update is for.
-      var flight: AirMapFlightId2 {
-        get {return _storage._flight ?? AirMapFlightId2()}
+      var flight: Airmap_FlightId {
+        get {return _storage._flight ?? Airmap_FlightId()}
         set {_uniqueStorage()._flight = newValue}
       }
       /// Returns true if `flight` has been explicitly set.
@@ -210,7 +210,7 @@ struct AirMapTelemetry {
       /// Clears the value of `submitted`. Subsequent reads from it will return its default value.
       mutating func clearSubmitted() {_uniqueStorage()._submitted = nil}
 
-      var reports: [AirMapTelemetry.Report] {
+      var reports: [Airmap_Telemetry.Report] {
         get {return _storage._reports}
         set {_uniqueStorage()._reports = newValue}
       }
@@ -229,8 +229,8 @@ struct AirMapTelemetry {
       // methods supported on all messages.
 
       /// Ack for received update.
-      var ack: AirMapTelemetry.Update.FromService.Ack {
-        get {return _storage._ack ?? AirMapTelemetry.Update.FromService.Ack()}
+      var ack: Airmap_Telemetry.Update.FromService.Ack {
+        get {return _storage._ack ?? Airmap_Telemetry.Update.FromService.Ack()}
         set {_uniqueStorage()._ack = newValue}
       }
       /// Returns true if `ack` has been explicitly set.
@@ -284,7 +284,7 @@ struct AirMapTelemetry {
 
 fileprivate let _protobuf_package = "airmap"
 
-extension AirMapTelemetry: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Airmap_Telemetry: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Telemetry"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -297,14 +297,14 @@ extension AirMapTelemetry: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapTelemetry, rhs: AirMapTelemetry) -> Bool {
+  static func ==(lhs: Airmap_Telemetry, rhs: Airmap_Telemetry) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension AirMapTelemetry.Report: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapTelemetry.protoMessageName + ".Report"
+extension Airmap_Telemetry.Report: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Telemetry.protoMessageName + ".Report"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "observed"),
     2: .same(proto: "spatial"),
@@ -313,7 +313,7 @@ extension AirMapTelemetry.Report: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 
   fileprivate class _StorageClass {
     var _observed: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
-    var _details: AirMapTelemetry.Report.OneOf_Details?
+    var _details: Airmap_Telemetry.Report.OneOf_Details?
 
     static let defaultInstance = _StorageClass()
 
@@ -339,7 +339,7 @@ extension AirMapTelemetry.Report: SwiftProtobuf.Message, SwiftProtobuf._MessageI
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._observed)
         case 2:
-          var v: AirMapTelemetry.Report.Spatial?
+          var v: Airmap_Telemetry.Report.Spatial?
           if let current = _storage._details {
             try decoder.handleConflictingOneOf()
             if case .spatial(let m) = current {v = m}
@@ -347,7 +347,7 @@ extension AirMapTelemetry.Report: SwiftProtobuf.Message, SwiftProtobuf._MessageI
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._details = .spatial(v)}
         case 3:
-          var v: AirMapTelemetry.Report.Atmospheric?
+          var v: Airmap_Telemetry.Report.Atmospheric?
           if let current = _storage._details {
             try decoder.handleConflictingOneOf()
             if case .atmospheric(let m) = current {v = m}
@@ -376,7 +376,7 @@ extension AirMapTelemetry.Report: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapTelemetry.Report, rhs: AirMapTelemetry.Report) -> Bool {
+  static func ==(lhs: Airmap_Telemetry.Report, rhs: Airmap_Telemetry.Report) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -392,8 +392,8 @@ extension AirMapTelemetry.Report: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   }
 }
 
-extension AirMapTelemetry.Report.Spatial: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapTelemetry.Report.protoMessageName + ".Spatial"
+extension Airmap_Telemetry.Report.Spatial: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Telemetry.Report.protoMessageName + ".Spatial"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "position"),
     2: .same(proto: "velocity"),
@@ -401,9 +401,9 @@ extension AirMapTelemetry.Report.Spatial: SwiftProtobuf.Message, SwiftProtobuf._
   ]
 
   fileprivate class _StorageClass {
-    var _position: AirMapPosition? = nil
-    var _velocity: AirMapVelocity? = nil
-    var _orientation: AirMapOrientation? = nil
+    var _position: Airmap_Position? = nil
+    var _velocity: Airmap_Velocity? = nil
+    var _orientation: Airmap_Orientation? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -452,7 +452,7 @@ extension AirMapTelemetry.Report.Spatial: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapTelemetry.Report.Spatial, rhs: AirMapTelemetry.Report.Spatial) -> Bool {
+  static func ==(lhs: Airmap_Telemetry.Report.Spatial, rhs: Airmap_Telemetry.Report.Spatial) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -469,8 +469,8 @@ extension AirMapTelemetry.Report.Spatial: SwiftProtobuf.Message, SwiftProtobuf._
   }
 }
 
-extension AirMapTelemetry.Report.Atmospheric: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapTelemetry.Report.protoMessageName + ".Atmospheric"
+extension Airmap_Telemetry.Report.Atmospheric: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Telemetry.Report.protoMessageName + ".Atmospheric"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "position"),
     2: .same(proto: "pressure"),
@@ -478,9 +478,9 @@ extension AirMapTelemetry.Report.Atmospheric: SwiftProtobuf.Message, SwiftProtob
   ]
 
   fileprivate class _StorageClass {
-    var _position: AirMapPosition? = nil
-    var _pressure: AirMapPressure? = nil
-    var _temperature: AirMapTemperature? = nil
+    var _position: Airmap_Position? = nil
+    var _pressure: Airmap_Pressure? = nil
+    var _temperature: Airmap_Temperature? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -529,7 +529,7 @@ extension AirMapTelemetry.Report.Atmospheric: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapTelemetry.Report.Atmospheric, rhs: AirMapTelemetry.Report.Atmospheric) -> Bool {
+  static func ==(lhs: Airmap_Telemetry.Report.Atmospheric, rhs: Airmap_Telemetry.Report.Atmospheric) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -546,8 +546,8 @@ extension AirMapTelemetry.Report.Atmospheric: SwiftProtobuf.Message, SwiftProtob
   }
 }
 
-extension AirMapTelemetry.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapTelemetry.protoMessageName + ".Update"
+extension Airmap_Telemetry.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Telemetry.protoMessageName + ".Update"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -559,14 +559,14 @@ extension AirMapTelemetry.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapTelemetry.Update, rhs: AirMapTelemetry.Update) -> Bool {
+  static func ==(lhs: Airmap_Telemetry.Update, rhs: Airmap_Telemetry.Update) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension AirMapTelemetry.Update.FromClient: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapTelemetry.Update.protoMessageName + ".FromClient"
+extension Airmap_Telemetry.Update.FromClient: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Telemetry.Update.protoMessageName + ".FromClient"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "flight"),
     2: .same(proto: "submitted"),
@@ -574,9 +574,9 @@ extension AirMapTelemetry.Update.FromClient: SwiftProtobuf.Message, SwiftProtobu
   ]
 
   fileprivate class _StorageClass {
-    var _flight: AirMapFlightId2? = nil
+    var _flight: Airmap_FlightId? = nil
     var _submitted: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
-    var _reports: [AirMapTelemetry.Report] = []
+    var _reports: [Airmap_Telemetry.Report] = []
 
     static let defaultInstance = _StorageClass()
 
@@ -625,7 +625,7 @@ extension AirMapTelemetry.Update.FromClient: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapTelemetry.Update.FromClient, rhs: AirMapTelemetry.Update.FromClient) -> Bool {
+  static func ==(lhs: Airmap_Telemetry.Update.FromClient, rhs: Airmap_Telemetry.Update.FromClient) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -642,14 +642,14 @@ extension AirMapTelemetry.Update.FromClient: SwiftProtobuf.Message, SwiftProtobu
   }
 }
 
-extension AirMapTelemetry.Update.FromService: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapTelemetry.Update.protoMessageName + ".FromService"
+extension Airmap_Telemetry.Update.FromService: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Telemetry.Update.protoMessageName + ".FromService"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "ack"),
   ]
 
   fileprivate class _StorageClass {
-    var _ack: AirMapTelemetry.Update.FromService.Ack? = nil
+    var _ack: Airmap_Telemetry.Update.FromService.Ack? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -688,7 +688,7 @@ extension AirMapTelemetry.Update.FromService: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapTelemetry.Update.FromService, rhs: AirMapTelemetry.Update.FromService) -> Bool {
+  static func ==(lhs: Airmap_Telemetry.Update.FromService, rhs: Airmap_Telemetry.Update.FromService) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -703,8 +703,8 @@ extension AirMapTelemetry.Update.FromService: SwiftProtobuf.Message, SwiftProtob
   }
 }
 
-extension AirMapTelemetry.Update.FromService.Ack: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapTelemetry.Update.FromService.protoMessageName + ".Ack"
+extension Airmap_Telemetry.Update.FromService.Ack: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Telemetry.Update.FromService.protoMessageName + ".Ack"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "count"),
     2: .same(proto: "submitted"),
@@ -756,7 +756,7 @@ extension AirMapTelemetry.Update.FromService.Ack: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapTelemetry.Update.FromService.Ack, rhs: AirMapTelemetry.Update.FromService.Ack) -> Bool {
+  static func ==(lhs: Airmap_Telemetry.Update.FromService.Ack, rhs: Airmap_Telemetry.Update.FromService.Ack) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0

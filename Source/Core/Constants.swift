@@ -78,7 +78,7 @@ struct Constants {
 		static let smsCodeLength = 6
 	}
 
-	struct AirMapTelemetry {
+	struct Airmap_Telemetry {
 		static var host: String {
 			if let override = AirMap.configuration.airMapApiOverrides?["telemetry_host"] {
 				return override
@@ -98,7 +98,7 @@ struct Constants {
 		}
 		
 		struct SampleRate {
-			static let position: TimeInterval = 1/5
+			static let spatial: TimeInterval = 1/5
 			static let atmospheric: TimeInterval = 5
 		}
 	}

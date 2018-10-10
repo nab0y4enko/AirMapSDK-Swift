@@ -8,13 +8,50 @@
 
 import UIKit
 import AirMap
+import RxSwift
+import RxSwiftExt
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
+	let disposeBag = DisposeBag()
+
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+		AirMap.rx.performAnonymousLogin(userId: "adolfo").mapToVoid()
+			.flatMapLatest(AirMap.rx.getCurrentAuthenticatedPilotFlight)
+			.flatMapLatest { (active) -> Observable<AirMapFlight> in
+				if let active = active {
+					return Observable.of(active)
+				} else {
+					let flight = AirMapFlight()
+					flight.coordinate = Coordinate2D(latitude: 34, longitude: -118)
+					flight.buffer = 100
+					return AirMap.rx.createFlight(flight)
+				}
+			}
+			.flatMapLatest { (flight) -> Observable<AirMapFlight> in
+				Observable<Int>
+					.timer(0, period: 1, scheduler: MainScheduler.instance)
+					.mapTo(flight)
+			}
+			.subscribe(onNext: { (flight) in
+				flight.coordinate.latitude += 0.001
+				flight.coordinate.longitude += 0.001
+				try! AirMap.sendPositionalTelemetry(
+					flight.id!,
+					coordinate: flight.coordinate,
+					altitude: AirMap.Altitude(height: 10, reference: .ground),
+					velocity: nil,
+					orientation: nil
+				)
+			}, onError: { (error) in
+				print(error.localizedDescription)
+			})
+			.disposed(by: disposeBag)
+
 		return true
 	}
 

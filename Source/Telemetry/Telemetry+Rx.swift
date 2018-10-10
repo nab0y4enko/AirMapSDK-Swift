@@ -20,16 +20,18 @@
 import Swift
 import RxSwift
 
-extension AirMapTelemetryProviderServiceClient {
+extension Airmap_TelemetryProviderServiceClient {
 
-	func connectUpdates() -> Observable<AirMapTelemetryProviderConnectUpdatesCall> {
-		var call: AirMapTelemetryProviderConnectUpdatesCall?
-		return Observable<AirMapTelemetryProviderConnectUpdatesCall>.create { (observer) -> Disposable in
+	func connectUpdates() -> Observable<Airmap_TelemetryProviderConnectUpdatesCall> {
+		return Observable<Airmap_TelemetryProviderConnectUpdatesCall>.create { (observer) -> Disposable in
 			do {
+				var call: Airmap_TelemetryProviderConnectUpdatesCall?
 				call = try self.connectUpdates() { (result) in
-					if let call = call, result.success {
-						observer.onNext(call)
-					} else {
+					switch result.statusCode {
+					case .ok:
+						observer.onNext(call!)
+					default:
+						AirMap.logger.error(result.statusCode)
 						observer.onError(AirMap.TelemetryError.failedToConnectToService)
 					}
 				}
@@ -41,30 +43,26 @@ extension AirMapTelemetryProviderServiceClient {
 	}
 }
 
-extension AirMapTelemetryProviderConnectUpdatesCall {
+extension Airmap_TelemetryProviderConnectUpdatesCall {
 
-	func send(message: AirMapTelemetry.Update.FromClient) -> Observable<Void> {
+	func send(message: Airmap_Telemetry.Update.FromClient) -> Observable<Void> {
 		return Observable<Void>
 			.create({ (observer) -> Disposable in
 				do {
-					try self.send(message) { (error) in
-						if let error = error {
-							observer.onError(error)
-						} else {
-							observer.onNext(())
-							observer.onCompleted()
-						}
-					}
+					try self.send(message, timeout: DispatchTime.now() + 10)
+					observer.onNext(())
 				}
 				catch {
 					observer.onError(error)
 				}
-				return Disposables.create()
+				return Disposables.create {
+					self.cancel()
+				}
 			})
 	}
 
-	func receive() -> Observable<AirMapTelemetry.Update.FromService> {
-		return Observable<AirMapTelemetry.Update.FromService>
+	func receive() -> Observable<Airmap_Telemetry.Update.FromService> {
+		return Observable<Airmap_Telemetry.Update.FromService>
 			.create({ (observer) -> Disposable in
 				var work: DispatchWorkItem?
 				work = DispatchWorkItem(qos: .utility, flags: []) {

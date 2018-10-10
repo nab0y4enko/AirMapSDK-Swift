@@ -22,14 +22,14 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// Position models a spatial location.
-struct AirMapPosition {
+struct Airmap_Position {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The lat/lng coordinate of the position
-  var coordinate: AirMapCoordinate2D {
-    get {return _storage._coordinate ?? AirMapCoordinate2D()}
+  var coordinate: Airmap_Coordinate2D {
+    get {return _storage._coordinate ?? Airmap_Coordinate2D()}
     set {_uniqueStorage()._coordinate = newValue}
   }
   /// Returns true if `coordinate` has been explicitly set.
@@ -38,8 +38,8 @@ struct AirMapPosition {
   mutating func clearCoordinate() {_uniqueStorage()._coordinate = nil}
 
   /// The altitude component of the position.
-  var altitude: AirMapAltitude {
-    get {return _storage._altitude ?? AirMapAltitude()}
+  var altitude: Airmap_Altitude {
+    get {return _storage._altitude ?? Airmap_Altitude()}
     set {_uniqueStorage()._altitude = newValue}
   }
   /// Returns true if `altitude` has been explicitly set.
@@ -55,14 +55,14 @@ struct AirMapPosition {
 }
 
 /// Coordinate2D models a WGS84 latitude and longitude.
-struct AirMapCoordinate2D {
+struct Airmap_Coordinate2D {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The latitude component of this coordinate.
-  var latitude: AirMapDegrees {
-    get {return _storage._latitude ?? AirMapDegrees()}
+  var latitude: Airmap_Degrees {
+    get {return _storage._latitude ?? Airmap_Degrees()}
     set {_uniqueStorage()._latitude = newValue}
   }
   /// Returns true if `latitude` has been explicitly set.
@@ -71,8 +71,8 @@ struct AirMapCoordinate2D {
   mutating func clearLatitude() {_uniqueStorage()._latitude = nil}
 
   /// The longitude component of this coordinate.
-  var longitude: AirMapDegrees {
-    get {return _storage._longitude ?? AirMapDegrees()}
+  var longitude: Airmap_Degrees {
+    get {return _storage._longitude ?? Airmap_Degrees()}
     set {_uniqueStorage()._longitude = newValue}
   }
   /// Returns true if `longitude` has been explicitly set.
@@ -81,8 +81,8 @@ struct AirMapCoordinate2D {
   mutating func clearLongitude() {_uniqueStorage()._longitude = nil}
 
   /// The error of the coordinate measurement.
-  var error: AirMapCoordinate2D.Error {
-    get {return _storage._error ?? AirMapCoordinate2D.Error()}
+  var error: Airmap_Coordinate2D.Error {
+    get {return _storage._error ?? Airmap_Coordinate2D.Error()}
     set {_uniqueStorage()._error = newValue}
   }
   /// Returns true if `error` has been explicitly set.
@@ -99,8 +99,8 @@ struct AirMapCoordinate2D {
     // methods supported on all messages.
 
     /// The error estimate on the latitude measurement.
-    var latitude: AirMapDegrees {
-      get {return _storage._latitude ?? AirMapDegrees()}
+    var latitude: Airmap_Degrees {
+      get {return _storage._latitude ?? Airmap_Degrees()}
       set {_uniqueStorage()._latitude = newValue}
     }
     /// Returns true if `latitude` has been explicitly set.
@@ -109,8 +109,8 @@ struct AirMapCoordinate2D {
     mutating func clearLatitude() {_uniqueStorage()._latitude = nil}
 
     /// The error estimate on the longitude measurement.
-    var longitude: AirMapDegrees {
-      get {return _storage._longitude ?? AirMapDegrees()}
+    var longitude: Airmap_Degrees {
+      get {return _storage._longitude ?? Airmap_Degrees()}
       set {_uniqueStorage()._longitude = newValue}
     }
     /// Returns true if `longitude` has been explicitly set.
@@ -131,14 +131,14 @@ struct AirMapCoordinate2D {
 }
 
 /// Altitude models a height measurement from a given datum/reference.
-struct AirMapAltitude {
+struct Airmap_Altitude {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The altitude as measured from the reference.
-  var height: AirMapMeters {
-    get {return _storage._height ?? AirMapMeters()}
+  var height: Airmap_Meters {
+    get {return _storage._height ?? Airmap_Meters()}
     set {_uniqueStorage()._height = newValue}
   }
   /// Returns true if `height` has been explicitly set.
@@ -147,14 +147,14 @@ struct AirMapAltitude {
   mutating func clearHeight() {_uniqueStorage()._height = nil}
 
   /// The reference from which the altitude was measured.
-  var reference: AirMapAltitude.Reference {
+  var reference: Airmap_Altitude.Reference {
     get {return _storage._reference}
     set {_uniqueStorage()._reference = newValue}
   }
 
   /// The error of the altitude measurement.
-  var error: AirMapAltitude.Error {
-    get {return _storage._error ?? AirMapAltitude.Error()}
+  var error: Airmap_Altitude.Error {
+    get {return _storage._error ?? Airmap_Altitude.Error()}
     set {_uniqueStorage()._error = newValue}
   }
   /// Returns true if `error` has been explicitly set.
@@ -219,8 +219,8 @@ struct AirMapAltitude {
     // methods supported on all messages.
 
     /// The altitude error estimate.
-    var height: AirMapMeters {
-      get {return _storage._height ?? AirMapMeters()}
+    var height: Airmap_Meters {
+      get {return _storage._height ?? Airmap_Meters()}
       set {_uniqueStorage()._height = newValue}
     }
     /// Returns true if `height` has been explicitly set.
@@ -242,9 +242,9 @@ struct AirMapAltitude {
 
 #if swift(>=4.2)
 
-extension AirMapAltitude.Reference: CaseIterable {
+extension Airmap_Altitude.Reference: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [AirMapAltitude.Reference] = [
+  static var allCases: [Airmap_Altitude.Reference] = [
     .unknown,
     .ellipsoid,
     .geoid,
@@ -256,14 +256,14 @@ extension AirMapAltitude.Reference: CaseIterable {
 #endif  // swift(>=4.2)
 
 /// Course models a course measurement.
-struct AirMapCourse {
+struct Airmap_Course {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The angle of the course relative to true north.
-  var angle: AirMapDegrees {
-    get {return _storage._angle ?? AirMapDegrees()}
+  var angle: Airmap_Degrees {
+    get {return _storage._angle ?? Airmap_Degrees()}
     set {_uniqueStorage()._angle = newValue}
   }
   /// Returns true if `angle` has been explicitly set.
@@ -272,8 +272,8 @@ struct AirMapCourse {
   mutating func clearAngle() {_uniqueStorage()._angle = nil}
 
   /// The error of the course measurement.
-  var error: AirMapCourse.Error {
-    get {return _storage._error ?? AirMapCourse.Error()}
+  var error: Airmap_Course.Error {
+    get {return _storage._error ?? Airmap_Course.Error()}
     set {_uniqueStorage()._error = newValue}
   }
   /// Returns true if `error` has been explicitly set.
@@ -290,8 +290,8 @@ struct AirMapCourse {
     // methods supported on all messages.
 
     /// The error in course.
-    var degrees: AirMapDegrees {
-      get {return _storage._degrees ?? AirMapDegrees()}
+    var degrees: Airmap_Degrees {
+      get {return _storage._degrees ?? Airmap_Degrees()}
       set {_uniqueStorage()._degrees = newValue}
     }
     /// Returns true if `degrees` has been explicitly set.
@@ -312,14 +312,14 @@ struct AirMapCourse {
 }
 
 /// Velocity models a velocity as XYZ vectors in the NED (north-east-down) coordinate space.
-struct AirMapVelocity {
+struct Airmap_Velocity {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The velocity along the X axis.
-  var x: AirMapMetersPerSecond {
-    get {return _storage._x ?? AirMapMetersPerSecond()}
+  var x: Airmap_MetersPerSecond {
+    get {return _storage._x ?? Airmap_MetersPerSecond()}
     set {_uniqueStorage()._x = newValue}
   }
   /// Returns true if `x` has been explicitly set.
@@ -328,8 +328,8 @@ struct AirMapVelocity {
   mutating func clearX() {_uniqueStorage()._x = nil}
 
   /// The velocity along the Y axis.
-  var y: AirMapMetersPerSecond {
-    get {return _storage._y ?? AirMapMetersPerSecond()}
+  var y: Airmap_MetersPerSecond {
+    get {return _storage._y ?? Airmap_MetersPerSecond()}
     set {_uniqueStorage()._y = newValue}
   }
   /// Returns true if `y` has been explicitly set.
@@ -338,8 +338,8 @@ struct AirMapVelocity {
   mutating func clearY() {_uniqueStorage()._y = nil}
 
   /// The velocity along the Z axis. 
-  var z: AirMapMetersPerSecond {
-    get {return _storage._z ?? AirMapMetersPerSecond()}
+  var z: Airmap_MetersPerSecond {
+    get {return _storage._z ?? Airmap_MetersPerSecond()}
     set {_uniqueStorage()._z = newValue}
   }
   /// Returns true if `z` has been explicitly set.
@@ -348,8 +348,8 @@ struct AirMapVelocity {
   mutating func clearZ() {_uniqueStorage()._z = nil}
 
   /// The error of the velocity measurement.
-  var error: AirMapVelocity.Error {
-    get {return _storage._error ?? AirMapVelocity.Error()}
+  var error: Airmap_Velocity.Error {
+    get {return _storage._error ?? Airmap_Velocity.Error()}
     set {_uniqueStorage()._error = newValue}
   }
   /// Returns true if `error` has been explicitly set.
@@ -366,8 +366,8 @@ struct AirMapVelocity {
     // methods supported on all messages.
 
     /// The error along the X axis.
-    var x: AirMapMetersPerSecond {
-      get {return _storage._x ?? AirMapMetersPerSecond()}
+    var x: Airmap_MetersPerSecond {
+      get {return _storage._x ?? Airmap_MetersPerSecond()}
       set {_uniqueStorage()._x = newValue}
     }
     /// Returns true if `x` has been explicitly set.
@@ -376,8 +376,8 @@ struct AirMapVelocity {
     mutating func clearX() {_uniqueStorage()._x = nil}
 
     /// The error along the Y axis.
-    var y: AirMapMetersPerSecond {
-      get {return _storage._y ?? AirMapMetersPerSecond()}
+    var y: Airmap_MetersPerSecond {
+      get {return _storage._y ?? Airmap_MetersPerSecond()}
       set {_uniqueStorage()._y = newValue}
     }
     /// Returns true if `y` has been explicitly set.
@@ -386,8 +386,8 @@ struct AirMapVelocity {
     mutating func clearY() {_uniqueStorage()._y = nil}
 
     /// The error along the Z axis.
-    var z: AirMapMetersPerSecond {
-      get {return _storage._z ?? AirMapMetersPerSecond()}
+    var z: Airmap_MetersPerSecond {
+      get {return _storage._z ?? Airmap_MetersPerSecond()}
       set {_uniqueStorage()._z = newValue}
     }
     /// Returns true if `z` has been explicitly set.
@@ -408,14 +408,14 @@ struct AirMapVelocity {
 }
 
 /// Orientation models an attitude or positional orientation measurement.
-struct AirMapOrientation {
+struct Airmap_Orientation {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The angular rotation of the vehicle along its vertical axis relative to True North.
-  var yaw: AirMapDegrees {
-    get {return _storage._yaw ?? AirMapDegrees()}
+  var yaw: Airmap_Degrees {
+    get {return _storage._yaw ?? Airmap_Degrees()}
     set {_uniqueStorage()._yaw = newValue}
   }
   /// Returns true if `yaw` has been explicitly set.
@@ -424,8 +424,8 @@ struct AirMapOrientation {
   mutating func clearYaw() {_uniqueStorage()._yaw = nil}
 
   /// The angular rotation of the vehicle along its lateral axis.
-  var pitch: AirMapDegrees {
-    get {return _storage._pitch ?? AirMapDegrees()}
+  var pitch: Airmap_Degrees {
+    get {return _storage._pitch ?? Airmap_Degrees()}
     set {_uniqueStorage()._pitch = newValue}
   }
   /// Returns true if `pitch` has been explicitly set.
@@ -434,8 +434,8 @@ struct AirMapOrientation {
   mutating func clearPitch() {_uniqueStorage()._pitch = nil}
 
   /// The angular rotation of the vehicle along its longitudinal axis.
-  var roll: AirMapDegrees {
-    get {return _storage._roll ?? AirMapDegrees()}
+  var roll: Airmap_Degrees {
+    get {return _storage._roll ?? Airmap_Degrees()}
     set {_uniqueStorage()._roll = newValue}
   }
   /// Returns true if `roll` has been explicitly set.
@@ -444,8 +444,8 @@ struct AirMapOrientation {
   mutating func clearRoll() {_uniqueStorage()._roll = nil}
 
   /// The error of the orientation measurements.
-  var error: AirMapOrientation.Error {
-    get {return _storage._error ?? AirMapOrientation.Error()}
+  var error: Airmap_Orientation.Error {
+    get {return _storage._error ?? Airmap_Orientation.Error()}
     set {_uniqueStorage()._error = newValue}
   }
   /// Returns true if `error` has been explicitly set.
@@ -462,8 +462,8 @@ struct AirMapOrientation {
     // methods supported on all messages.
 
     /// The error in angular rotation of the vehicle along its vertical axis relative to True North.
-    var yaw: AirMapDegrees {
-      get {return _storage._yaw ?? AirMapDegrees()}
+    var yaw: Airmap_Degrees {
+      get {return _storage._yaw ?? Airmap_Degrees()}
       set {_uniqueStorage()._yaw = newValue}
     }
     /// Returns true if `yaw` has been explicitly set.
@@ -472,8 +472,8 @@ struct AirMapOrientation {
     mutating func clearYaw() {_uniqueStorage()._yaw = nil}
 
     /// The error in angular rotation of the vehicle along its lateral axis.
-    var pitch: AirMapDegrees {
-      get {return _storage._pitch ?? AirMapDegrees()}
+    var pitch: Airmap_Degrees {
+      get {return _storage._pitch ?? Airmap_Degrees()}
       set {_uniqueStorage()._pitch = newValue}
     }
     /// Returns true if `pitch` has been explicitly set.
@@ -482,8 +482,8 @@ struct AirMapOrientation {
     mutating func clearPitch() {_uniqueStorage()._pitch = nil}
 
     /// The error in angular rotation of the vehicle along its longitudinal axis.
-    var roll: AirMapDegrees {
-      get {return _storage._roll ?? AirMapDegrees()}
+    var roll: Airmap_Degrees {
+      get {return _storage._roll ?? Airmap_Degrees()}
       set {_uniqueStorage()._roll = newValue}
     }
     /// Returns true if `roll` has been explicitly set.
@@ -504,14 +504,14 @@ struct AirMapOrientation {
 }
 
 /// Pressure models an atmospheric pressure measurement.
-struct AirMapPressure {
+struct Airmap_Pressure {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The pressure in Pa units.
-  var units: AirMapPascal {
-    get {return _storage._units ?? AirMapPascal()}
+  var units: Airmap_Pascal {
+    get {return _storage._units ?? Airmap_Pascal()}
     set {_uniqueStorage()._units = newValue}
   }
   /// Returns true if `units` has been explicitly set.
@@ -520,8 +520,8 @@ struct AirMapPressure {
   mutating func clearUnits() {_uniqueStorage()._units = nil}
 
   /// The error in the pressure measurement.
-  var error: AirMapPressure.Error {
-    get {return _storage._error ?? AirMapPressure.Error()}
+  var error: Airmap_Pressure.Error {
+    get {return _storage._error ?? Airmap_Pressure.Error()}
     set {_uniqueStorage()._error = newValue}
   }
   /// Returns true if `error` has been explicitly set.
@@ -538,8 +538,8 @@ struct AirMapPressure {
     // methods supported on all messages.
 
     /// The error in the pressure value.
-    var pressure: AirMapPascal {
-      get {return _storage._pressure ?? AirMapPascal()}
+    var pressure: Airmap_Pascal {
+      get {return _storage._pressure ?? Airmap_Pascal()}
       set {_uniqueStorage()._pressure = newValue}
     }
     /// Returns true if `pressure` has been explicitly set.
@@ -560,14 +560,14 @@ struct AirMapPressure {
 }
 
 /// Temperature models an atmospheric temperature measurement.
-struct AirMapTemperature {
+struct Airmap_Temperature {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The temperature in degrees Celsius.
-  var degrees: AirMapCelsius {
-    get {return _storage._degrees ?? AirMapCelsius()}
+  var degrees: Airmap_Celsius {
+    get {return _storage._degrees ?? Airmap_Celsius()}
     set {_uniqueStorage()._degrees = newValue}
   }
   /// Returns true if `degrees` has been explicitly set.
@@ -576,8 +576,8 @@ struct AirMapTemperature {
   mutating func clearDegrees() {_uniqueStorage()._degrees = nil}
 
   /// The error in the temperature measurement.
-  var error: AirMapTemperature.Error {
-    get {return _storage._error ?? AirMapTemperature.Error()}
+  var error: Airmap_Temperature.Error {
+    get {return _storage._error ?? Airmap_Temperature.Error()}
     set {_uniqueStorage()._error = newValue}
   }
   /// Returns true if `error` has been explicitly set.
@@ -594,8 +594,8 @@ struct AirMapTemperature {
     // methods supported on all messages.
 
     /// The error in the temperature value.
-    var degrees: AirMapCelsius {
-      get {return _storage._degrees ?? AirMapCelsius()}
+    var degrees: Airmap_Celsius {
+      get {return _storage._degrees ?? Airmap_Celsius()}
       set {_uniqueStorage()._degrees = newValue}
     }
     /// Returns true if `degrees` has been explicitly set.
@@ -619,7 +619,7 @@ struct AirMapTemperature {
 
 fileprivate let _protobuf_package = "airmap"
 
-extension AirMapPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Airmap_Position: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Position"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "coordinate"),
@@ -627,8 +627,8 @@ extension AirMapPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   ]
 
   fileprivate class _StorageClass {
-    var _coordinate: AirMapCoordinate2D? = nil
-    var _altitude: AirMapAltitude? = nil
+    var _coordinate: Airmap_Coordinate2D? = nil
+    var _altitude: Airmap_Altitude? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -672,7 +672,7 @@ extension AirMapPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapPosition, rhs: AirMapPosition) -> Bool {
+  static func ==(lhs: Airmap_Position, rhs: Airmap_Position) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -688,7 +688,7 @@ extension AirMapPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   }
 }
 
-extension AirMapCoordinate2D: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Airmap_Coordinate2D: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Coordinate2D"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "latitude"),
@@ -697,9 +697,9 @@ extension AirMapCoordinate2D: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   ]
 
   fileprivate class _StorageClass {
-    var _latitude: AirMapDegrees? = nil
-    var _longitude: AirMapDegrees? = nil
-    var _error: AirMapCoordinate2D.Error? = nil
+    var _latitude: Airmap_Degrees? = nil
+    var _longitude: Airmap_Degrees? = nil
+    var _error: Airmap_Coordinate2D.Error? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -748,7 +748,7 @@ extension AirMapCoordinate2D: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapCoordinate2D, rhs: AirMapCoordinate2D) -> Bool {
+  static func ==(lhs: Airmap_Coordinate2D, rhs: Airmap_Coordinate2D) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -765,16 +765,16 @@ extension AirMapCoordinate2D: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   }
 }
 
-extension AirMapCoordinate2D.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapCoordinate2D.protoMessageName + ".Error"
+extension Airmap_Coordinate2D.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Coordinate2D.protoMessageName + ".Error"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "latitude"),
     2: .same(proto: "longitude"),
   ]
 
   fileprivate class _StorageClass {
-    var _latitude: AirMapDegrees? = nil
-    var _longitude: AirMapDegrees? = nil
+    var _latitude: Airmap_Degrees? = nil
+    var _longitude: Airmap_Degrees? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -818,7 +818,7 @@ extension AirMapCoordinate2D.Error: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapCoordinate2D.Error, rhs: AirMapCoordinate2D.Error) -> Bool {
+  static func ==(lhs: Airmap_Coordinate2D.Error, rhs: Airmap_Coordinate2D.Error) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -834,7 +834,7 @@ extension AirMapCoordinate2D.Error: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 }
 
-extension AirMapAltitude: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Airmap_Altitude: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Altitude"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "height"),
@@ -843,9 +843,9 @@ extension AirMapAltitude: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   ]
 
   fileprivate class _StorageClass {
-    var _height: AirMapMeters? = nil
-    var _reference: AirMapAltitude.Reference = .unknown
-    var _error: AirMapAltitude.Error? = nil
+    var _height: Airmap_Meters? = nil
+    var _reference: Airmap_Altitude.Reference = .unknown
+    var _error: Airmap_Altitude.Error? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -894,7 +894,7 @@ extension AirMapAltitude: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapAltitude, rhs: AirMapAltitude) -> Bool {
+  static func ==(lhs: Airmap_Altitude, rhs: Airmap_Altitude) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -911,7 +911,7 @@ extension AirMapAltitude: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   }
 }
 
-extension AirMapAltitude.Reference: SwiftProtobuf._ProtoNameProviding {
+extension Airmap_Altitude.Reference: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "UNKNOWN"),
     1: .same(proto: "ELLIPSOID"),
@@ -921,14 +921,14 @@ extension AirMapAltitude.Reference: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
-extension AirMapAltitude.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapAltitude.protoMessageName + ".Error"
+extension Airmap_Altitude.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Altitude.protoMessageName + ".Error"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "height"),
   ]
 
   fileprivate class _StorageClass {
-    var _height: AirMapMeters? = nil
+    var _height: Airmap_Meters? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -967,7 +967,7 @@ extension AirMapAltitude.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapAltitude.Error, rhs: AirMapAltitude.Error) -> Bool {
+  static func ==(lhs: Airmap_Altitude.Error, rhs: Airmap_Altitude.Error) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -982,7 +982,7 @@ extension AirMapAltitude.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   }
 }
 
-extension AirMapCourse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Airmap_Course: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Course"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "angle"),
@@ -990,8 +990,8 @@ extension AirMapCourse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
   ]
 
   fileprivate class _StorageClass {
-    var _angle: AirMapDegrees? = nil
-    var _error: AirMapCourse.Error? = nil
+    var _angle: Airmap_Degrees? = nil
+    var _error: Airmap_Course.Error? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1035,7 +1035,7 @@ extension AirMapCourse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapCourse, rhs: AirMapCourse) -> Bool {
+  static func ==(lhs: Airmap_Course, rhs: Airmap_Course) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1051,14 +1051,14 @@ extension AirMapCourse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
   }
 }
 
-extension AirMapCourse.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapCourse.protoMessageName + ".Error"
+extension Airmap_Course.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Course.protoMessageName + ".Error"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "degrees"),
   ]
 
   fileprivate class _StorageClass {
-    var _degrees: AirMapDegrees? = nil
+    var _degrees: Airmap_Degrees? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1097,7 +1097,7 @@ extension AirMapCourse.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapCourse.Error, rhs: AirMapCourse.Error) -> Bool {
+  static func ==(lhs: Airmap_Course.Error, rhs: Airmap_Course.Error) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1112,7 +1112,7 @@ extension AirMapCourse.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   }
 }
 
-extension AirMapVelocity: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Airmap_Velocity: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Velocity"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "x"),
@@ -1122,10 +1122,10 @@ extension AirMapVelocity: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   ]
 
   fileprivate class _StorageClass {
-    var _x: AirMapMetersPerSecond? = nil
-    var _y: AirMapMetersPerSecond? = nil
-    var _z: AirMapMetersPerSecond? = nil
-    var _error: AirMapVelocity.Error? = nil
+    var _x: Airmap_MetersPerSecond? = nil
+    var _y: Airmap_MetersPerSecond? = nil
+    var _z: Airmap_MetersPerSecond? = nil
+    var _error: Airmap_Velocity.Error? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1179,7 +1179,7 @@ extension AirMapVelocity: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapVelocity, rhs: AirMapVelocity) -> Bool {
+  static func ==(lhs: Airmap_Velocity, rhs: Airmap_Velocity) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1197,8 +1197,8 @@ extension AirMapVelocity: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   }
 }
 
-extension AirMapVelocity.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapVelocity.protoMessageName + ".Error"
+extension Airmap_Velocity.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Velocity.protoMessageName + ".Error"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "x"),
     2: .same(proto: "y"),
@@ -1206,9 +1206,9 @@ extension AirMapVelocity.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   ]
 
   fileprivate class _StorageClass {
-    var _x: AirMapMetersPerSecond? = nil
-    var _y: AirMapMetersPerSecond? = nil
-    var _z: AirMapMetersPerSecond? = nil
+    var _x: Airmap_MetersPerSecond? = nil
+    var _y: Airmap_MetersPerSecond? = nil
+    var _z: Airmap_MetersPerSecond? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1257,7 +1257,7 @@ extension AirMapVelocity.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapVelocity.Error, rhs: AirMapVelocity.Error) -> Bool {
+  static func ==(lhs: Airmap_Velocity.Error, rhs: Airmap_Velocity.Error) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1274,7 +1274,7 @@ extension AirMapVelocity.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   }
 }
 
-extension AirMapOrientation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Airmap_Orientation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Orientation"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "yaw"),
@@ -1284,10 +1284,10 @@ extension AirMapOrientation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
   ]
 
   fileprivate class _StorageClass {
-    var _yaw: AirMapDegrees? = nil
-    var _pitch: AirMapDegrees? = nil
-    var _roll: AirMapDegrees? = nil
-    var _error: AirMapOrientation.Error? = nil
+    var _yaw: Airmap_Degrees? = nil
+    var _pitch: Airmap_Degrees? = nil
+    var _roll: Airmap_Degrees? = nil
+    var _error: Airmap_Orientation.Error? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1341,7 +1341,7 @@ extension AirMapOrientation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapOrientation, rhs: AirMapOrientation) -> Bool {
+  static func ==(lhs: Airmap_Orientation, rhs: Airmap_Orientation) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1359,8 +1359,8 @@ extension AirMapOrientation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
   }
 }
 
-extension AirMapOrientation.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapOrientation.protoMessageName + ".Error"
+extension Airmap_Orientation.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Orientation.protoMessageName + ".Error"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "yaw"),
     2: .same(proto: "pitch"),
@@ -1368,9 +1368,9 @@ extension AirMapOrientation.Error: SwiftProtobuf.Message, SwiftProtobuf._Message
   ]
 
   fileprivate class _StorageClass {
-    var _yaw: AirMapDegrees? = nil
-    var _pitch: AirMapDegrees? = nil
-    var _roll: AirMapDegrees? = nil
+    var _yaw: Airmap_Degrees? = nil
+    var _pitch: Airmap_Degrees? = nil
+    var _roll: Airmap_Degrees? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1419,7 +1419,7 @@ extension AirMapOrientation.Error: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapOrientation.Error, rhs: AirMapOrientation.Error) -> Bool {
+  static func ==(lhs: Airmap_Orientation.Error, rhs: Airmap_Orientation.Error) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1436,7 +1436,7 @@ extension AirMapOrientation.Error: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 }
 
-extension AirMapPressure: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Airmap_Pressure: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Pressure"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "units"),
@@ -1444,8 +1444,8 @@ extension AirMapPressure: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   ]
 
   fileprivate class _StorageClass {
-    var _units: AirMapPascal? = nil
-    var _error: AirMapPressure.Error? = nil
+    var _units: Airmap_Pascal? = nil
+    var _error: Airmap_Pressure.Error? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1489,7 +1489,7 @@ extension AirMapPressure: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapPressure, rhs: AirMapPressure) -> Bool {
+  static func ==(lhs: Airmap_Pressure, rhs: Airmap_Pressure) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1505,14 +1505,14 @@ extension AirMapPressure: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   }
 }
 
-extension AirMapPressure.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapPressure.protoMessageName + ".Error"
+extension Airmap_Pressure.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Pressure.protoMessageName + ".Error"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "pressure"),
   ]
 
   fileprivate class _StorageClass {
-    var _pressure: AirMapPascal? = nil
+    var _pressure: Airmap_Pascal? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1551,7 +1551,7 @@ extension AirMapPressure.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapPressure.Error, rhs: AirMapPressure.Error) -> Bool {
+  static func ==(lhs: Airmap_Pressure.Error, rhs: Airmap_Pressure.Error) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1566,7 +1566,7 @@ extension AirMapPressure.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   }
 }
 
-extension AirMapTemperature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Airmap_Temperature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Temperature"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "degrees"),
@@ -1574,8 +1574,8 @@ extension AirMapTemperature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
   ]
 
   fileprivate class _StorageClass {
-    var _degrees: AirMapCelsius? = nil
-    var _error: AirMapTemperature.Error? = nil
+    var _degrees: Airmap_Celsius? = nil
+    var _error: Airmap_Temperature.Error? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1619,7 +1619,7 @@ extension AirMapTemperature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapTemperature, rhs: AirMapTemperature) -> Bool {
+  static func ==(lhs: Airmap_Temperature, rhs: Airmap_Temperature) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1635,14 +1635,14 @@ extension AirMapTemperature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
   }
 }
 
-extension AirMapTemperature.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = AirMapTemperature.protoMessageName + ".Error"
+extension Airmap_Temperature.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Airmap_Temperature.protoMessageName + ".Error"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "degrees"),
   ]
 
   fileprivate class _StorageClass {
-    var _degrees: AirMapCelsius? = nil
+    var _degrees: Airmap_Celsius? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1681,7 +1681,7 @@ extension AirMapTemperature.Error: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: AirMapTemperature.Error, rhs: AirMapTemperature.Error) -> Bool {
+  static func ==(lhs: Airmap_Temperature.Error, rhs: Airmap_Temperature.Error) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0

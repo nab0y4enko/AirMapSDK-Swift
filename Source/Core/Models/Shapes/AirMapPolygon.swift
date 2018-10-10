@@ -40,7 +40,7 @@ public class AirMapPolygon: AirMapGeometry {
 			let coordinates = self.coordinates.map { (coordinates) -> [Coordinate2D] in
 				coordinates.reduce([Coordinate2D]()) { (result, next) -> [Coordinate2D] in
 					var result = result
-					if result.last != next {
+					if let last = result.last, last != next {
 						result.append(next)
 					}
 					return result

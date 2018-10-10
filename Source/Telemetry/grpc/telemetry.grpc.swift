@@ -25,16 +25,16 @@ import Dispatch
 import SwiftGRPC
 import SwiftProtobuf
 
-internal protocol AirMapTelemetryProviderConnectUpdatesCall: ClientCallBidirectionalStreaming {
+internal protocol Airmap_TelemetryProviderConnectUpdatesCall: ClientCallBidirectionalStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> AirMapTelemetry.Update.FromService?
+  func _receive(timeout: DispatchTime) throws -> Airmap_Telemetry.Update.FromService?
   /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<AirMapTelemetry.Update.FromService?>) -> Void) throws
+  func receive(completion: @escaping (ResultOrRPCError<Airmap_Telemetry.Update.FromService?>) -> Void) throws
 
   /// Send a message to the stream. Nonblocking.
-  func send(_ message: AirMapTelemetry.Update.FromClient, completion: @escaping (Error?) -> Void) throws
+  func send(_ message: Airmap_Telemetry.Update.FromClient, completion: @escaping (Error?) -> Void) throws
   /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: AirMapTelemetry.Update.FromClient, timeout: DispatchTime) throws
+  func _send(_ message: Airmap_Telemetry.Update.FromClient, timeout: DispatchTime) throws
 
   /// Call this to close the sending connection. Blocking.
   func closeSend() throws
@@ -42,36 +42,36 @@ internal protocol AirMapTelemetryProviderConnectUpdatesCall: ClientCallBidirecti
   func closeSend(completion: (() -> Void)?) throws
 }
 
-internal extension AirMapTelemetryProviderConnectUpdatesCall {
+internal extension Airmap_TelemetryProviderConnectUpdatesCall {
   /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> AirMapTelemetry.Update.FromService? { return try self._receive(timeout: timeout) }
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Airmap_Telemetry.Update.FromService? { return try self._receive(timeout: timeout) }
 }
 
-internal extension AirMapTelemetryProviderConnectUpdatesCall {
+internal extension Airmap_TelemetryProviderConnectUpdatesCall {
   /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: AirMapTelemetry.Update.FromClient, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+  func send(_ message: Airmap_Telemetry.Update.FromClient, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
 }
 
-fileprivate final class AirMapTelemetryProviderConnectUpdatesCallBase: ClientCallBidirectionalStreamingBase<AirMapTelemetry.Update.FromClient, AirMapTelemetry.Update.FromService>, AirMapTelemetryProviderConnectUpdatesCall {
+fileprivate final class Airmap_TelemetryProviderConnectUpdatesCallBase: ClientCallBidirectionalStreamingBase<Airmap_Telemetry.Update.FromClient, Airmap_Telemetry.Update.FromService>, Airmap_TelemetryProviderConnectUpdatesCall {
   override class var method: String { return "/airmap.TelemetryProvider/ConnectUpdates" }
 }
 
 
-/// Instantiate AirMapTelemetryProviderServiceClient, then call methods of this protocol to make API calls.
-internal protocol AirMapTelemetryProviderService: ServiceClient {
+/// Instantiate Airmap_TelemetryProviderServiceClient, then call methods of this protocol to make API calls.
+internal protocol Airmap_TelemetryProviderService: ServiceClient {
   /// Asynchronous. Bidirectional-streaming.
   /// Use methods on the returned object to stream messages,
   /// to wait for replies, and to close the connection.
-  func connectUpdates(completion: ((CallResult) -> Void)?) throws -> AirMapTelemetryProviderConnectUpdatesCall
+  func connectUpdates(completion: ((CallResult) -> Void)?) throws -> Airmap_TelemetryProviderConnectUpdatesCall
 
 }
 
-internal final class AirMapTelemetryProviderServiceClient: ServiceClientBase, AirMapTelemetryProviderService {
+internal final class Airmap_TelemetryProviderServiceClient: ServiceClientBase, Airmap_TelemetryProviderService {
   /// Asynchronous. Bidirectional-streaming.
   /// Use methods on the returned object to stream messages,
   /// to wait for replies, and to close the connection.
-  internal func connectUpdates(completion: ((CallResult) -> Void)?) throws -> AirMapTelemetryProviderConnectUpdatesCall {
-    return try AirMapTelemetryProviderConnectUpdatesCallBase(channel)
+  internal func connectUpdates(completion: ((CallResult) -> Void)?) throws -> Airmap_TelemetryProviderConnectUpdatesCall {
+    return try Airmap_TelemetryProviderConnectUpdatesCallBase(channel)
       .start(metadata: metadata, completion: completion)
   }
 

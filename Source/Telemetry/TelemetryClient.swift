@@ -1,5 +1,5 @@
 //
-//  AirMapTelemetry.swift
+//  Airmap_Telemetry.swift
 //  AirMapSDK
 //
 //  Created by Adolfo Martinelli on 12/5/16.
@@ -21,58 +21,59 @@
 import Swift
 import RxSwift
 import RxSwiftExt
+import SwiftGRPC
 
 class TelemetryClient {
 
-	func sendTelemetry(flight: AirMapFlightId, report: AirMapTelemetry.Report) {
+	func sendTelemetry(flight: AirMapFlightId, report: Airmap_Telemetry.Report) {
 		reports.onNext((flight, report))
 	}
 
-	private typealias FlightReport = (flightId: AirMapFlightId, report: AirMapTelemetry.Report)
+	private typealias FlightReport = (flightId: AirMapFlightId, report: Airmap_Telemetry.Report)
 
 	private let reports = PublishSubject<FlightReport>()
 	private let disposeBag = DisposeBag()
-
-	private static let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
-	private static let connectRetry = RepeatBehavior.delayed(maxCount: .max, time: 1)
-	private static let transceiveRetry = RepeatBehavior.exponentialDelayed(maxCount: 3, initial: 1, multiplier: 2)
+	private let scheduler = MainScheduler.instance
 
 	init() {
-		let client = AirMapTelemetryProviderServiceClient(address: "udp.telemetry.k8s.airmap.io:7090")
-		try! client.metadata.add(key: "x-api-key", value: AirMap.configuration.airMapApiKey)
-		try! client.metadata.add(key: "x-bundle-identifier", value: Bundle.main.bundleIdentifier ?? "AirMapSDK-Swift")
+
+		let channel = Channel(address: "localhost:9091", secure: false, arguments: [])
+		let client = Airmap_TelemetryProviderServiceClient(channel: channel)
+		let call = try! client.connectUpdates(completion: nil)
+
+		let channelState = Observable<Channel.ConnectivityState>.create { (observer) -> Disposable in
+			channel.subscribe { (state) in
+				observer.onNext(state)
+			}
+			return Disposables.create()
+		}
 
 		let telemetry = Observable
 			.merge(
 				reports
 					.filter(TelemetryClient.isSpatialReport)
-					.throttle(Constants.AirMapTelemetry.SampleRate.position, scheduler: TelemetryClient.scheduler),
+					.throttle(Constants.Airmap_Telemetry.SampleRate.spatial, scheduler: scheduler),
 				reports
 					.filter(TelemetryClient.isAtmosphericReport)
-					.throttle(Constants.AirMapTelemetry.SampleRate.atmospheric, scheduler: TelemetryClient.scheduler)
+					.throttle(Constants.Airmap_Telemetry.SampleRate.atmospheric, scheduler: scheduler)
 			)
-			.map({ (next) -> AirMapTelemetry.Update.FromClient in
+			.map({ (next) -> Airmap_Telemetry.Update.FromClient in
 				.with({ (update) in
 					update.submitted = .init(date: Date())
-					update.flight = AirMapFlightId2.with({ $0.asString = next.flightId.rawValue })
+					update.flight = Airmap_FlightId.with({ $0.asString = next.flightId.rawValue })
 					update.reports = [next.report]
 				})
 			})
 
-		client
-			.connectUpdates()
-			.flatMap({ (connection) -> Observable<Void> in
-				.merge(
-					telemetry
-						.flatMap(connection.send)
-						.retry(TelemetryClient.transceiveRetry),
-					connection
-						.receive()
-						.retry(TelemetryClient.transceiveRetry)
-						.mapToVoid()
-				)
-			})
-			.retry(TelemetryClient.connectRetry)
+		channelState
+			.debug("Telemetry gRPC Channel State")
+			.filter(.ready)
+			.flatMapLatest { (_) -> Observable<Void> in
+				telemetry
+					.flatMap(call.send)
+					.ignoreErrors()
+					.takeUntil(channelState)
+			}
 			.subscribe()
 			.disposed(by: disposeBag)
 	}
