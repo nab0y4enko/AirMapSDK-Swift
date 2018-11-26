@@ -127,9 +127,21 @@ extension MGLMapView {
 
 		newLayer.sourceLayerIdentifier = ruleset.id.rawValue + "_" + existingLayer.airspaceType!.rawValue
 		
+		// Loop through each property and copy it to the new layer
 		properties.forEach { key in
 			let baseValue = existingLayer.value(forKey: key)
-			newLayer.setValue(baseValue, forKey: key)
+
+			// MapBox does not accept empty expressions
+			if let bv = baseValue as? NSExpression {
+				if bv != NSExpression(forConstantValue: "") {
+					print("bv : \(bv)")
+					newLayer.setValue(baseValue, forKey: key)
+				}
+			} else {
+				newLayer.setValue(baseValue, forKey: key)
+			}
+
+			
 		}
 		
 		return newLayer
@@ -151,13 +163,13 @@ extension MGLStyle {
 		let airMapBaseLayers = vectorLayers
 			.filter { $0.sourceIdentifier == "airmap" }
 			.filter { $0.airspaceType != nil && types.contains($0.airspaceType!) }
-				
+		
 		return airMapBaseLayers
 	}
 	    
     /// Updates the map labels to one of the supported languages
     func localizeLabels() {
-        
+		
         let currentLanguage = Locale.current.languageCode ?? "en"
         let supportedLanguages = ["en", "es", "de", "fr", "ru", "zh"]
         let supportsCurrentLanguage = supportedLanguages.contains(currentLanguage)
