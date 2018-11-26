@@ -144,13 +144,13 @@ extension AirMapMapView {
 
 	private func setupAccessToken() {
 		
-		guard MGLAccountManager.accessToken() == nil else { return }
+		guard MGLAccountManager.accessToken == nil else { return }
 		
 		guard let token = AirMap.configuration.mapboxAccessToken else {
 			fatalError("A Mapbox access token is required to use the AirMap SDK UI map component. " +
 				"https://www.mapbox.com/help/define-access-token/")
 		}
-		MGLAccountManager.setAccessToken(token)
+		MGLAccountManager.accessToken = token
 	}
 	
 	private func setupBindings() {
