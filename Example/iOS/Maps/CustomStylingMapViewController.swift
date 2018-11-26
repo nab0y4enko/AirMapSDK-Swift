@@ -65,14 +65,14 @@ extension CustomStylingMapViewController: AirMapMapViewDelegate {
 			
 		case let lineLayer as MGLLineStyleLayer:
 			if let color = color {
-				lineLayer.lineColor = MGLStyleValue(rawValue: color)
+				lineLayer.lineColor = NSExpression(forConstantValue: color)
 			}
 			// removed dashed lines
 			lineLayer.lineDashPattern = nil
 			
 		case let fillLayer as MGLFillStyleLayer:
 			if let color = color {
-				fillLayer.fillColor = MGLStyleValue(rawValue: color)
+				fillLayer.fillColor = NSExpression(forConstantValue: color)
 			}
 
 		default:
