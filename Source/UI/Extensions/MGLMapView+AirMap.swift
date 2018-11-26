@@ -124,24 +124,22 @@ extension MGLMapView {
 			AirMap.logger.warning("Unsupported layer type:", existingLayer)
 			return nil
 		}
-
+		
 		newLayer.sourceLayerIdentifier = ruleset.id.rawValue + "_" + existingLayer.airspaceType!.rawValue
 		
 		// Loop through each property and copy it to the new layer
 		properties.forEach { key in
 			let baseValue = existingLayer.value(forKey: key)
-
+			
 			// MapBox does not accept empty expressions
 			if let bv = baseValue as? NSExpression {
 				if bv != NSExpression(forConstantValue: "") {
-					print("bv : \(bv)")
 					newLayer.setValue(baseValue, forKey: key)
 				}
 			} else {
 				newLayer.setValue(baseValue, forKey: key)
 			}
-
-			
+		
 		}
 		
 		return newLayer
@@ -173,21 +171,15 @@ extension MGLStyle {
         let currentLanguage = Locale.current.languageCode ?? "en"
         let supportedLanguages = ["en", "es", "de", "fr", "ru", "zh"]
         let supportsCurrentLanguage = supportedLanguages.contains(currentLanguage)
-        
+		
 		let labelLayers = layers.compactMap { $0 as? MGLSymbolStyleLayer }
 		
         for layer in labelLayers {
-            if let textValue = layer.text as? MGLConstantStyleValue {
-                let nameField: String
-                if supportsCurrentLanguage {
-                    nameField = "{name_\(currentLanguage)}"
-                } else {
-                    nameField = "{name}"
-                }
-                let newValue = textValue.rawValue.replacingOccurrences(of: "{name_en}", with: nameField)
-                layer.text = MGLStyleValue(rawValue: newValue as NSString)
-            }
+			let localString = supportsCurrentLanguage ? currentLanguage : "en"
+			let local = Locale(identifier: localString)
+			layer.text = layer.text.mgl_expressionLocalized(into: local) //= NSExpression(forConstantValue: newValue)
         }
+		
     }
         
     /// Update the predicates for temporal layers such as .tfr and .notam with a near future time window
