@@ -268,7 +268,7 @@ extension AirMapMapView {
 			.map { $0.tileSourceIdentifier }
 		
 		let existingSourceIds = style.sources
-			.compactMap { $0 as? MGLVectorSource }
+			.compactMap { $0 as? MGLVectorTileSource }
 			.compactMap { $0.identifier }
 			.filter { $0.hasPrefix(Constants.Maps.rulesetSourcePrefix) }
 		
@@ -309,7 +309,7 @@ extension AirMapMapView {
 		
 		guard style.source(withIdentifier: ruleset.tileSourceIdentifier) == nil else { return }
 		
-		let rulesetTileSource = MGLVectorSource(ruleset: ruleset)
+		let rulesetTileSource = MGLVectorTileSource(ruleset: ruleset)
 		style.addSource(rulesetTileSource)
 
 		style.airMapBaseStyleLayers(for: ruleset.airspaceTypes)

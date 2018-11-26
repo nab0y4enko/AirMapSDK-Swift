@@ -163,7 +163,7 @@ extension MGLStyle {
         let supportsCurrentLanguage = supportedLanguages.contains(currentLanguage)
         
 		let labelLayers = layers.compactMap { $0 as? MGLSymbolStyleLayer }
-        
+		
         for layer in labelLayers {
             if let textValue = layer.text as? MGLConstantStyleValue {
                 let nameField: String
@@ -212,7 +212,7 @@ extension MGLStyleLayer {
 	}
 }
 
-extension MGLVectorSource {
+extension MGLVectorTileSource {
 	
 	convenience init(ruleset: AirMapRuleset) {
 		
