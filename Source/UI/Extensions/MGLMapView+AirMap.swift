@@ -169,15 +169,16 @@ extension MGLStyle {
     func localizeLabels() {
 		
         let currentLanguage = Locale.current.languageCode ?? "en"
-        let supportedLanguages = ["en", "es", "de", "fr", "ru", "zh"]
-        let supportsCurrentLanguage = supportedLanguages.contains(currentLanguage)
+		let mapBoxSupportedLanguages = ["en", "es", "fr", "de", "ru", "zh", "pt", "ar", "ja", "ko"]
+        let supportsCurrentLanguage = mapBoxSupportedLanguages.contains(currentLanguage)
 		
 		let labelLayers = layers.compactMap { $0 as? MGLSymbolStyleLayer }
 		
         for layer in labelLayers {
+			// Check if mapbox supports current local
 			let localString = supportsCurrentLanguage ? currentLanguage : "en"
 			let local = Locale(identifier: localString)
-			layer.text = layer.text.mgl_expressionLocalized(into: local) //= NSExpression(forConstantValue: newValue)
+			layer.text = layer.text.mgl_expressionLocalized(into: local)
         }
 		
     }
