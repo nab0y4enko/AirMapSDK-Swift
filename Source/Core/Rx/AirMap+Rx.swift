@@ -245,3 +245,14 @@ extension Reactive where Base: AirMap {
 		return AirMap.airspaceClient.listAirspace(airspaceIds)
 	}
 }
+
+/// Documentation found in AirMap+Telemetry.swift
+
+#if AIRMAP_TELEMETRY
+extension Reactive where Base: AirMap {
+
+	public static func queryFlightTelemetry(for flightId: AirMapFlightId, from start: Date? = nil, to end: Date? = nil, sampleRate: String? = nil) -> Observable<ArchivedTelemetry> {
+		return AirMap.archiveClient.queryFlightTelemetry(for: flightId, from: start, to: end, sampleRate: sampleRate)
+	}
+}
+#endif

@@ -66,7 +66,7 @@ Pod::Spec.new do |s|
 		telemetry.dependency 'CocoaAsyncSocket'
 		telemetry.dependency 'CryptoSwift', '~> 0.10.0'
 		telemetry.dependency 'ProtocolBuffers-Swift', '~> 4.0.6'
-		telemetry.source_files = 'Source/Telemetry/*'
+		telemetry.source_files = 'Source/Telemetry/**/*'
 	end
 	
 end
