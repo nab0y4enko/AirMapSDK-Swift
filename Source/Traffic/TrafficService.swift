@@ -124,22 +124,6 @@ internal class TrafficService: MQTTSessionDelegate {
 			.flatMap(AirMap.rx.getCurrentAuthenticatedPilotFlight)
 			.bind(to: currentFlight)
 			.disposed(by: disposeBag)
-
-		let trafficProjectionTimer = Observable<Int>.interval(0.25, scheduler: MainScheduler.asyncInstance).mapToVoid()
-
-		trafficProjectionTimer
-			.subscribe(onNext: { [weak self] _ in
-				self?.updateTrafficProjections()
-			})
-			.disposed(by: disposeBag)
-
-		let purgeTrafficTimer = Observable<Int>.interval(5, scheduler: MainScheduler.asyncInstance).mapToVoid()
-
-		purgeTrafficTimer
-			.subscribe(onNext: { [weak self] _ in
-				self?.purgeExpiredTraffic()
-			})
-			.disposed(by: disposeBag)
 	}
 
 	func connect() {
@@ -315,9 +299,6 @@ internal class TrafficService: MQTTSessionDelegate {
 		if updatedTraffic.count > 0 {
 			delegate?.airMapTrafficServiceDidUpdate(updatedTraffic)
 		}
-	}
-
-	@objc fileprivate func purgeExpiredTraffic() {
 
 		let expiredTraffic = activeTraffic.filter(isExpired)
 
@@ -325,25 +306,12 @@ internal class TrafficService: MQTTSessionDelegate {
 			activeTraffic.removeObjectsInArray(expiredTraffic)
 			delegate?.airMapTrafficServiceDidRemove(expiredTraffic)
 		}
-
-		updateTrafficProjections()
 	}
 
 	fileprivate func removeAllTraffic() {
 		if activeTraffic.count > 0 {
 			delegate?.airMapTrafficServiceDidRemove(activeTraffic)
 			activeTraffic.removeAll()
-		}
-	}
-
-	fileprivate func updateTrafficProjections() {
-
-		let updatedTraffic = activeTraffic
-			.filter(isMoving)
-			.map (projectedTraffic)
-
-		if updatedTraffic.count > 0 {
-			addTraffic(updatedTraffic)
 		}
 	}
 
@@ -357,10 +325,6 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	// MARK: - Filter/Map helper functions
 
-	fileprivate func isMoving(_ traffic: AirMapTraffic) -> Bool {
-		return traffic.groundSpeed > -1 && traffic.trueHeading > -1
-	}
-
 	fileprivate func hasAircractId(_ traffic: AirMapTraffic) -> Bool {
 		return !traffic.properties.aircraftId.isEmpty
 	}
@@ -371,34 +335,6 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	fileprivate func hasAircractIdMatching(_ aircraftId: String) -> (AirMapTraffic) -> Bool {
 		return { $0.properties.aircraftId == aircraftId }
-	}
-
-	/**
-	Mapping function that projects the traffic's position
-	*/
-	fileprivate func projectedTraffic(_ traffic: AirMapTraffic) -> AirMapTraffic {
-		let newPosition = projectedCoordinate(traffic)
-		traffic.coordinate.latitude = newPosition.latitude
-		traffic.coordinate.longitude = newPosition.longitude
-		return traffic
-	}
-
-	/**
-	Calculates the projected coordinate for the Manned Aircraft Traffic based upon distance and direction traveled.
-	- returns: CLLocation
-	*/
-	fileprivate func projectedCoordinate(_ traffic: AirMapTraffic) -> CLLocationCoordinate2D {
-
-		guard isMoving(traffic) else {
-			return traffic.initialCoordinate
-		}
-
-		let elapsedTime = Double(Date().timeIntervalSince(traffic.recordedTime))
-		let metersPerSecond = traffic.groundSpeed.metersPerSecond
-		let distanceTraveledInMeters = metersPerSecond*elapsedTime
-		let trafficLocation = CLLocation(latitude: traffic.initialCoordinate.latitude, longitude: traffic.initialCoordinate.longitude)
-
-		return trafficLocation.destinationLocation(withInitialBearing: Double(traffic.trueHeading), distance: distanceTraveledInMeters).coordinate
 	}
 
 	/**
@@ -447,7 +383,6 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		let receivedTraffic = traffic.map { t -> AirMapTraffic in
 			t.trafficType = self.trafficTypeForTopic(message.topic)
-			t.coordinate = self.projectedCoordinate(t)
 			return t
 		}
 
