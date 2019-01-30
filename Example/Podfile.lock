@@ -41,7 +41,7 @@ PODS:
   - Lock/Classic (2.7.0):
     - Auth0 (~> 1.13)
   - Log (1.0)
-  - Mapbox-iOS-SDK (4.6.0)
+  - Mapbox-iOS-SDK (4.7.1)
   - Nimble (7.3.1)
   - ObjectMapper (3.3.0)
   - OHHTTPStubs (6.1.0):
@@ -128,7 +128,7 @@ SPEC CHECKSUMS:
   JWTDecode: 83e8b381aafe27158d9f692cbdca2b12d61d460c
   Lock: 2b1486153f8bc2205ec180a1957c5717597a4b8a
   Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
-  Mapbox-iOS-SDK: 204c04713477cf2a88c52c5a8eed1790eb75a02a
+  Mapbox-iOS-SDK: f9292a75e8cd5eb828f4432623bfc48aac42146a
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
