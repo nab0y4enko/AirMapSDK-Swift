@@ -254,6 +254,22 @@ extension AirMapMapView {
 		allowsRotating = false
 	}
 	
+	public var jurisdictionsUpdate: Observable<[AirMapJurisdiction]> {
+		return rx.mapDidFinishLoadingStyle
+			.flatMapLatest({ [unowned self] (style) -> Observable<[AirMapJurisdiction]> in
+				return Observable
+					.merge(
+						self.rx.regionIsChanging
+							.throttle(3, latest: true, scheduler: MainScheduler.instance),
+						self.rx.regionDidChangeAnimated.map({$0.mapView})
+							.throttle(1, latest: true, scheduler: MainScheduler.instance),
+						self.rx.mapDidFinishRenderingMap.map({$0.mapView})
+					)
+					.map({ $0.jurisdictions })
+					.distinctUntilChanged(==)
+			})
+	}
+	
 	// MARK: - Configuration
 	
 	private func configure(for theme: Theme) {
