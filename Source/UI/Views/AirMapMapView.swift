@@ -173,23 +173,31 @@ extension AirMapMapView {
 			.delay(0.1, scheduler: MainScheduler.asyncInstance)
 
 		// Rebuild the observable chain if the delegate is replaced
-		latestDelegate
-			.flatMapLatest({ [unowned self] _ -> Observable<Void> in
+		let jurisdictions = latestDelegate
+			.flatMapLatest({ [unowned self] (_) -> Observable<[AirMapJurisdiction]> in
+				return self.jurisdictionsUpdate
+			})
 
-				let style = self.rx.mapDidFinishLoadingStyle.map({$1})
+		// Rebuild the observable chain if the delegate is replaced
+		let style = latestDelegate
+			.flatMapLatest({ [unowned self] (_) -> Observable<MGLStyle> in
+				return self.rx.mapDidFinishLoadingStyle.map({$1})
+			})
+
+		// Delay to prevent reentry warnings
+		let rulesetConfig = self.rulesetConfigurationSubject
+			.distinctUntilChanged(==)
+
+		Observable.combineLatest(style, jurisdictions)
+			.flatMapLatest({ [unowned self] (style, jurisdictions) -> Observable<Void> in
+
 				let range = self.temporalRangeSubject
-				let jurisdictions = self.rx.jurisdictions
-
-				// Delay to prevent reentry warnings
-				let rulesetConfig = self.rulesetConfigurationSubject
-					.distinctUntilChanged(==)
 
 				// Configure the map with the active rulesets
 				// Notify the delegate of available jurisdictions and activated rulesets
-				let configureRulesets = Observable
-					.combineLatest(style, jurisdictions, rulesetConfig)
+				let configureRulesets = rulesetConfig
 					.observeOn(MainScheduler.asyncInstance)
-					.do(onNext: { [unowned self] (style, jurisdictions, rulesetsConfig) in
+					.do(onNext: { [unowned self] rulesetsConfig in
 						let activeRulesets = AirMapMapView.activeRulesets(from: jurisdictions, using: rulesetsConfig)
 						AirMapMapView.configure(mapView: self, style: style, with: activeRulesets)
 						// Notify the delegate of available jurisdictions and activated rulesets
@@ -199,9 +207,8 @@ extension AirMapMapView {
 					.mapToVoid()
 
 				// Update temporal filters with either a sliding window or a fixed range
-				let configureTemporalLayers = Observable
-					.combineLatest(style, range)
-					.flatMapLatest({ (style, range) -> Observable<(MGLStyle, start: Date, end: Date)> in
+				let configureTemporalLayers = range
+					.flatMapLatest({ range -> Observable<(MGLStyle, start: Date, end: Date)> in
 						switch range {
 						case .fixed(let start, let end):
 							return Observable.of((style, start, end))
@@ -217,17 +224,12 @@ extension AirMapMapView {
 					.mapToVoid()
 
 				// Localize the map labels when the style is updated
-				let localizeLabels = style
-					.do(onNext: { (style) in
-						style.localizeLabels()
-						style.transition = MGLTransitionMake(1, 0)
-					})
-					.mapToVoid()
+				style.localizeLabels()
+				style.transition = MGLTransitionMake(1, 0)
 
 				return Observable.merge(
 					configureRulesets,
-					configureTemporalLayers,
-					localizeLabels
+					configureTemporalLayers
 				)
 			})
 			.subscribe()
