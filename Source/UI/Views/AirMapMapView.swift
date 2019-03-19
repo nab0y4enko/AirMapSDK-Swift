@@ -168,7 +168,6 @@ extension AirMapMapView {
 		// Ignore Rx's delegate proxy to prevent infinite recursion
 		// Delay to prevent reentry warnings
 		let latestDelegate = rx.observeWeakly(MGLMapViewDelegate.self, "delegate", options: .new)
-//			.distinctUntilChanged(===) MEMORY LEAK
 			.filter { !($0 is Optional<RxMGLMapViewDelegateProxy>) }
 			.delay(0.1, scheduler: MainScheduler.asyncInstance)
 
