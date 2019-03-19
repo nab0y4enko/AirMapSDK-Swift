@@ -189,7 +189,8 @@ extension AirMapMapView {
 			.distinctUntilChanged(==)
 
 		Observable.combineLatest(style, jurisdictions)
-			.flatMapLatest({ [unowned self] (style, jurisdictions) -> Observable<Void> in
+			.flatMapLatest({ [weak self] (style, jurisdictions) -> Observable<Void> in
+				guard let `self` = self else { return Observable.of(Void()) }
 
 				let range = self.temporalRangeSubject
 
@@ -197,7 +198,9 @@ extension AirMapMapView {
 				// Notify the delegate of available jurisdictions and activated rulesets
 				let configureRulesets = rulesetConfig
 					.observeOn(MainScheduler.asyncInstance)
-					.do(onNext: { [unowned self] rulesetsConfig in
+					.do(onNext: { [weak self] rulesetsConfig in
+						guard let `self` = self else { return }
+
 						let activeRulesets = AirMapMapView.activeRulesets(from: jurisdictions, using: rulesetsConfig)
 						AirMapMapView.configure(mapView: self, style: style, with: activeRulesets)
 						// Notify the delegate of available jurisdictions and activated rulesets
