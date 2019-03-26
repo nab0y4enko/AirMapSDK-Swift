@@ -36,6 +36,7 @@ Pod::Spec.new do |s|
 		core.dependency 'RxSwiftExt'
 		core.dependency 'RxCocoa'
 		core.dependency 'Log'
+		core.dependency 'AppAuth'
 		core.resources = ['Resources/Core/*.{cer,pdf,xcassets}', 'Resources/Core/Localizations/**/*']
 	end
 	
@@ -47,7 +48,6 @@ Pod::Spec.new do |s|
 		ui.dependency 'PhoneNumberKit'
 		ui.dependency 'RxDataSources'
 		ui.dependency 'Mapbox-iOS-SDK', '<4.0'
-		ui.dependency 'AppAuth'
 		ui.source_files = 'Source/UI/**/{*.swift}'
 		ui.resources = ['Resources/UI/*.{xcassets}', 'Resources/UI/Localizations/**/*']
 	end
